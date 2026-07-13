@@ -79,6 +79,7 @@ See [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md) and the slide deck
 - L0 SAP BDC products are read-only zero-copy shares; the medallion only reads
   from them.
 
-## Sibling project
+## Sibling projects
 
-Finance edition, same pattern: **sap-bdc-finance-360**.
+Same pattern, other SAP domains:
+`sap-bdc-finance-360` · `sap-bdc-people-360` · `sap-bdc-sales-360`
