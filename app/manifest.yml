@@ -1,0 +1,31 @@
+manifest_version: 2
+
+version:
+  name: v2
+  label: "Supply Chain 360 v2 (self-contained)"
+  comment: "SAP Supply Chain 360 dashboard (React + Express on SPCS) with bundled data and Cortex Analyst."
+
+configuration:
+  log_level: INFO
+  trace_level: ALWAYS
+
+artifacts:
+  readme: README.md
+  setup_script: setup.sql
+  default_web_endpoint:
+    service: services.sc360_service
+    endpoint: sc360
+  container_services:
+    images:
+      - /sc360_app_provider/images/repo/supply_chain_360:latest
+
+privileges:
+  - CREATE COMPUTE POOL:
+      description: "Create the compute pool that runs the dashboard container."
+  - BIND SERVICE ENDPOINT:
+      description: "Expose the dashboard web UI endpoint."
+  - CREATE WAREHOUSE:
+      description: "Create a warehouse used to query the bundled Supply Chain data."
+
+lifecycle_callbacks:
+  version_initializer: core.version_init

@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+**/dist/
+*.tsbuildinfo
+
+# Secrets / credentials — NEVER commit
+*.p8
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+connections.toml
+config.toml
+
+# OS / editor
+.DS_Store
+*.log
