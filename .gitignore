@@ -20,3 +20,10 @@ config.toml
 # OS / editor
 .DS_Store
 *.log
+
+# presales deck screenshot cache — regenerated from the walkthrough by ffmpeg
+tools/.presales_shots/
+
+# python bytecode from the presales-kit generators
+__pycache__/
+*.pyc

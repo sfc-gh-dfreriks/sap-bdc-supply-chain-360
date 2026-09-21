@@ -71,6 +71,78 @@ See [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md) and the slide deck
 [`docs/SAP_Supply_Chain_360_Demo_Guide.pptx`](docs/SAP_Supply_Chain_360_Demo_Guide.pptx)
 (15 slides + presenter notes).
 
+## Presales kit
+
+A set of deliverables aimed at a Snowflake SE rather than a customer, published to
+the SAP Partnership Compass page on Seismic. Seismic has no API, so the generators
+write a local folder and the upload is manual.
+
+```bash
+python3 tools/build_presales_kit.py   # four Word documents
+python3 tools/build_presales_deck.py  # ten-slide deck, screenshots from the video
+```
+
+Both write to `~/Documents/SAP/Supply_Chain_360_Presales_Kit/`.
+
+| File | Contents |
+|---|---|
+| `00_START_HERE.docx` | The demo in eight numbers, which file to open, the two demo routes |
+| `03_SE_Quick_Start.docx` | Positioning, a ten-minute path, all 13 pages, the 8 agent questions, discovery questions, objections |
+| `05_Architecture_and_Install.docx` | The medallion stack, the 9 gold tables, build order, refresh caveat |
+| `06_Setup_and_Access.docx` | Both listings, the three region URLs, object inventory |
+| `00_Presales_Overview.pptx` | Ten slides — problem, architecture, objects, app, AI, routes, regions, real-vs-demo, the ask |
+
+`docx_kit.py` is vendored here (shared with the supply-chain-ontology project) so
+this repo can generate its own documents without an external dependency.
+
+### Figures are verified, not copied
+
+Several existing docs disagreed with each other, so the generators state counts
+that were checked against the account on 2026-09-21:
+
+| Figure | Source of truth |
+|---|---|
+| 16 domain schemas, 21 `A_*` objects, 398 L0 rows | `INFORMATION_SCHEMA.TABLES` |
+| 9 L2 dynamic tables, 11 `APP_REF` views | `SHOW DYNAMIC TABLES` / `INFORMATION_SCHEMA` |
+| 32 facts, 75 dimensions, 8 verified queries | `DESCRIBE SEMANTIC VIEW` |
+| 13 app pages | `service/app/client/src/components/Sidebar.tsx` |
+
+Two apparent contradictions in the older docs are not contradictions: **16 vs 21
+products** is 21 `A_*` objects across 16 schemas, and **9 vs 11 tables** is 9
+dynamic tables plus `A_PLANT` and `A_SUPPLY_CHAIN_NODES` in the serving layer.
+Both numbers are right; they count different things.
+
+### The data window
+
+The bundled dataset is a fixed synthetic snapshot covering **January to September
+2025**. Every kit document says so, because an SE who claims the data is current
+gets caught by a date axis. Both marketplace listings carry the same statement and
+are set to `refresh_rate: STATIC`.
+
+Note also that the nine dynamic tables use `TARGET_LAG = DOWNSTREAM` with nothing
+downstream declaring a lag, so they do not refresh on a schedule. That is moot for
+the demo — the L0 data is fixed, so a refresh would not move any date — but set an
+explicit `TARGET_LAG` if you point this stack at live BDC data products.
+
+### Screenshots
+
+`build_presales_deck.py` pulls frames from the narrated walkthrough with ffmpeg,
+cached in `tools/.presales_shots/`. Two things to know:
+
+- The raw frames include a personal bookmarks bar and a `localhost` URL, so every
+  frame is cropped. Do not add an uncropped frame.
+- The walkthrough is mostly slides and Snowsight; only a few frames show the app
+  rendered rather than loading. The Snowflake Intelligence frame is a mid-load
+  state and is deliberately **not** used — that slide is text instead.
+
+Check the deck renders before shipping it; an overflowing text box is invisible in
+the XML:
+
+```bash
+soffice --headless --convert-to pdf 00_Presales_Overview.pptx --outdir /tmp/deckchk
+pdftoppm -png -r 70 /tmp/deckchk/00_Presales_Overview.pdf /tmp/deckchk/p
+```
+
 ## Security notes
 
 - No credentials are committed. Scripts read key-pair connections from
