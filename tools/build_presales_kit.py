@@ -46,7 +46,7 @@ from docx_kit import (  # noqa: E402
 KIT = pathlib.Path.home() / "Documents" / "SAP" / "Supply_Chain_360_Presales_Kit"
 DATE = "21 September 2026"
 
-REPO_URL = "https://github.com/dfreriks-snow/sap-bdc-supply-chain-360"
+REPO_URL = "https://github.com/sfc-gh-dfreriks/sap-bdc-supply-chain-360"
 APP_LISTING = "ORGDATACLOUD$INTERNAL$SUPPLY_CHAIN_360_ORG"
 SHARE_LISTING = "ORGDATACLOUD$INTERNAL$SAP_BDC_SUPPLY_CHAIN_360"
 
@@ -751,7 +751,7 @@ def build_setup():
         ["Asset", "Where"],
         [
             ["Supply Chain Ontology kit", "The disruption-modelling companion — separate kit on Compass"],
-            ["SAP BDC Ontology Explorer", "https://dfreriks-snow.github.io/sap-bdc-data-products/"],
+            ["SAP BDC Ontology Explorer", "https://sfc-gh-dfreriks.github.io/sap-bdc-data-products/"],
             ["This kit", "SAP Partnership Compass, Seismic"],
         ],
         widths=[1.9, 4.8],
