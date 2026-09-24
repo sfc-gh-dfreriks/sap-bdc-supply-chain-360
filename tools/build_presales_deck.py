@@ -409,7 +409,7 @@ def s10_ask(prs):
         y += Inches(1.02)
     text(s, Inches(0.95), Inches(6.55), Inches(11.4), Inches(0.7), [
         ("Full kit on SAP Partnership Compass · start with 03_SE_Quick_Start.docx", 12, True, WHITE, 4),
-        ("github.com/dfreriks-snow/sap-bdc-supply-chain-360 · contact Dave Freriks", 10.5, False, LIGHT, 0)])
+        ("github.com/sfc-gh-dfreriks/sap-bdc-supply-chain-360 · contact Dave Freriks", 10.5, False, LIGHT, 0)])
 
 
 def main():
