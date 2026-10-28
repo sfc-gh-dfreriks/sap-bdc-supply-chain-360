@@ -50,7 +50,7 @@ FRAMES = {                       # name -> (segment id, fraction into the segmen
 # The video asks its Ask Cortex question straight away, so the suggestion
 # chip grid is never on screen for long. It is shot from the running app instead.
 CHIPS_APP = "http://localhost:5174/"
-CHIPS_BOX = (280, 120, 1576, 420)    # chip grid, in 1600x1000 viewport pixels
+CHIPS_BOX = (280, 330, 1576, 475)    # chip grid (panel opened), in 1600x1000 viewport pixels
 
 APP_PAGES = [
     "Ask Cortex", "Executive Dashboard", "Production Planning", "Bill of Materials",
@@ -79,6 +79,8 @@ def shoot_chips(path):
         pg = b.new_page(viewport={"width": 1600, "height": APP_H})
         pg.goto(CHIPS_APP, wait_until="domcontentloaded")
         pg.get_by_role("button", name="Ask Cortex", exact=True).click()
+        # the Ask Cortex page shows its chips only once the panel is opened
+        pg.get_by_role("button", name="Analyse the supply chain").click()
         pg.get_by_text("Which plant needs attention first and why?").first.wait_for(timeout=30000)
         pg.mouse.move(5, APP_H - 5)    # keep the pointer out of the shot
         pg.wait_for_timeout(800)
