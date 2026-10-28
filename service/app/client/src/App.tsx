@@ -10,7 +10,7 @@ import WorkCenter from '@/pages/WorkCenter';
 import Projects from '@/pages/Projects';
 import Geography from '@/pages/Geography';
 import Lineage from '@/pages/Lineage';
-import Analyst from '@/pages/Analyst';
+import AskCortexPage from '@/pages/AskCortexPage';
 import Ontology from '@/pages/Ontology';
 import Optimization from '@/pages/Optimization';
 import Forecasting from '@/pages/Forecasting';
@@ -34,6 +34,7 @@ const ASK: Partial<Record<PageId, { topic: string; suggestions: string[] }>> = {
 };
 
 const PAGE_COMPONENTS: Record<string, React.FC> = {
+  ask: AskCortexPage,
   overview: Overview,
   production: Production,
   bom: Bom,
@@ -43,7 +44,6 @@ const PAGE_COMPONENTS: Record<string, React.FC> = {
   projects: Projects,
   supplychain: Geography,
   lineage: Lineage,
-  analyst: Analyst,
   ontology: Ontology,
   optimization: Optimization,
   forecasting: Forecasting,

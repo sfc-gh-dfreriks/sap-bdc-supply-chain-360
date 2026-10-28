@@ -60,7 +60,8 @@ REGIONS = [
 ]
 
 PAGES = [
-    ("Executive Overview", "Plant KPIs, OEE, on-time delivery"),
+    ("Ask Cortex", "Questions answered across the whole supply chain, from live numbers"),
+    ("Executive Dashboard", "Plant KPIs, OEE, on-time delivery (the app opens here)"),
     ("Production Planning", "Orders, planned vs confirmed, yield and scrap"),
     ("Bill of Materials", "Multi-level BOM with component costs"),
     ("Inventory & Warehouse", "Stock positions, days of inventory, obsolescence"),
@@ -75,20 +76,17 @@ PAGES = [
     ("SC Optimization", "Reroute and mitigation exploration"),
     ("SC Forecasting", "Forward-looking demand and supply signals"),
     ("BDC Sources & Lineage", "The SAP BDC products behind each page, with row counts"),
-    ("Cortex Analyst", "Natural-language questions over the semantic view"),
 ]
 
-# The eight suggestion chips on the app's Cortex Analyst page, read off the UI.
-# Each corresponds to one of the twelve AI_VERIFIED_QUERY entries in the semantic view.
+# The six suggestion chips on the app's Ask Cortex page (first in the sidebar),
+# read off client/src/pages/AskCortexPage.tsx.
 AGENT_QUESTIONS = [
-    "What is the monthly OEE trend by plant?",
-    "Which work centers have the highest utilization?",
-    "What is the overall on-time delivery rate?",
-    "How do suppliers rank by quality score?",
-    "What is the production yield rate by product?",
-    "Which projects are over budget?",
-    "What percentage of inventory is obsolete?",
-    "What are the most expensive BOM components?",
+    "What are the top three supply chain risks this quarter?",
+    "Which plant needs attention first and why?",
+    "Where is working capital tied up in inventory?",
+    "Which work centers are bottlenecks?",
+    "Which shipping point is least reliable?",
+    "Is demand outrunning capacity?",
 ]
 
 DATA_WINDOW = "January 2025 to September 2025"
@@ -351,13 +349,13 @@ def build_quick_start():
             [
                 "1",
                 "—",
-                "Open the app cold. Say: nothing was installed, configured or loaded "
+                "Open the app cold; it lands on the Executive Dashboard. Say: nothing was installed, configured or loaded "
                 "to get here — the data is already inside. That is the whole point.",
                 "1 min",
             ],
             [
                 "2",
-                "Executive Overview",
+                "Executive Dashboard",
                 "Plant KPIs, OEE, on-time delivery. Say: these are SAP's own "
                 "definitions, not metrics we re-invented in a warehouse.",
                 "1 min",
@@ -400,9 +398,10 @@ def build_quick_start():
             ],
             [
                 "7",
-                "Cortex Analyst",
-                "Ask a real question live (see the list below). Then expand the "
-                "generated SQL — governed and explainable, not a black box.",
+                "Ask Cortex",
+                "Ask a real question live (see the list below); the answer is built "
+                "from the app's live numbers. For generated SQL, ask the same question "
+                "of SAP_SC360_ANALYST_AGENT in Snowflake Intelligence.",
                 "2 min",
             ],
             [
@@ -416,11 +415,10 @@ def build_quick_start():
         widths=[0.3, 1.5, 4.2, 0.7],
     )
 
-    h2(doc, "Questions that work on the agent")
+    h2(doc, "Questions that work on Ask Cortex")
     body(
         doc,
-        "These are the eight suggestion chips the Cortex Analyst page ships with, and "
-        "they line up with eight of the twelve verified queries in the semantic view — so they "
+        "These are the six suggestion chips the Ask Cortex page ships with, so they "
         "are the safe set. Read them off the screen or type your own variation.",
     )
     for q in AGENT_QUESTIONS:
@@ -582,8 +580,8 @@ def build_architecture():
             [
                 "Agent",
                 "SAP_SC360_ANALYST_AGENT",
-                "Account-level Cortex Agent in Snowflake Intelligence, and the same "
-                "model behind the app's Cortex Analyst page.",
+                "Account-level Cortex Agent in Snowflake Intelligence, over the same "
+                "semantic view that ships inside the app.",
             ],
             [
                 "App",

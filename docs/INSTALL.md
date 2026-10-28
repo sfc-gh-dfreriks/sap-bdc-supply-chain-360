@@ -5,7 +5,7 @@ Two ways to stand this up:
 - **A. Build the data platform** (L0 → L2 → serving → semantic → agent) in a
   Snowflake account. This gives you the medallion architecture + the
   `SAP_SC360_ANALYST_AGENT` for Snowflake Intelligence.
-- **B. Deploy the self-contained Native App** (React dashboard + Ask the Agent)
+- **B. Deploy the self-contained Native App** (React dashboard + Ask Cortex)
   and publish it as an organization listing — optionally across multiple regions.
 
 B bundles its own data, so it does **not** require A to already exist in the

@@ -24,8 +24,8 @@ PKG = "SUPPLY_CHAIN_360_PKG"
 LISTING = "SUPPLY_CHAIN_360_ORG"
 CONTACT = os.environ.get("LISTING_CONTACT", "you@example.com")
 DESC = ("Self-contained SAP Supply Chain 360 dashboard (React + Express on Snowpark "
-        "Container Services) with bundled data and a Cortex Analyst 'Ask the Agent' "
-        "page powered by the SAP_SC360_ANALYST_AGENT semantic model. No data setup required.")
+        "Container Services) with bundled data, an Ask Cortex page that answers across the "
+        "whole supply chain, and an Executive Dashboard it opens on. No data setup required.")
 
 
 def connect(conn_name, **kw):

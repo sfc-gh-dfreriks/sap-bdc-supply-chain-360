@@ -8,7 +8,6 @@ import {
   FolderKanban,
   Globe,
   Database,
-  Bot,
   Check,
   Network,
   Sparkles,
@@ -21,6 +20,7 @@ import { useFilters } from '@/hooks/useFilters';
 import { cn } from '@/lib/utils';
 
 export type PageId =
+  | 'ask'
   | 'overview'
   | 'production'
   | 'bom'
@@ -35,8 +35,7 @@ export type PageId =
   | 'ontology'
   | 'optimization'
   | 'forecasting'
-  | 'lineage'
-  | 'analyst';
+  | 'lineage';
 
 export interface NavItem {
   id: PageId;
@@ -45,7 +44,8 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { id: 'overview', label: 'Executive Overview', icon: LayoutDashboard },
+  { id: 'ask', label: 'Ask Cortex', icon: Sparkles },
+  { id: 'overview', label: 'Executive Dashboard', icon: LayoutDashboard },
   { id: 'production', label: 'Production Planning', icon: Factory },
   { id: 'bom', label: 'Bill of Materials', icon: GitBranch },
   { id: 'inventory', label: 'Inventory & Warehouse', icon: Warehouse },
@@ -60,7 +60,6 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'optimization', label: 'SC Optimization', icon: Sparkles },
   { id: 'forecasting', label: 'SC Forecasting', icon: TrendingUp },
   { id: 'lineage', label: 'BDC Sources & Lineage', icon: GitBranch },
-  { id: 'analyst', label: 'Cortex Analyst', icon: Bot },
 ];
 
 interface SidebarProps {

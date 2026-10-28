@@ -12,16 +12,17 @@ apps and global reach on top — no pipelines, full SAP context preserved.
 
 ## 10-minute flow
 
-1. **Open the app** — no setup; the data is already inside (bundled Native App).
-2. **Overview** — plant KPIs, OEE and on-time delivery.
+1. **Open the app** — no setup; the data is already inside (bundled Native App). It opens on the Executive Dashboard.
+2. **Executive Dashboard** — plant KPIs, OEE and on-time delivery.
 3. **Production / Inventory / Logistics** — drill into orders, stock, deliveries.
 4. **Global supply-chain map** — supplier→plant→customer flows (deck.gl).
 5. **Projects & Quality** — budget variance and supplier-quality scorecards.
-6. **Ask the Agent** — type a question live into the `SAP_SC360_ANALYST_AGENT`:
+6. **Ask Cortex** (first in the sidebar) — type a question live about the whole supply chain
+   (or ask the `SAP_SC360_ANALYST_AGENT` in Snowflake Intelligence):
    - "What is the monthly OEE trend by plant?"
    - "Which work centers are bottlenecks?"
    - "How do suppliers rank by quality score?"
-7. **Show the generated SQL** — prove it's governed and explainable.
+7. **Show the generated SQL** (agent in Snowflake Intelligence) — prove it's governed and explainable.
 8. **Recap** — zero-ETL, governed, AI-ready, one-click distribution.
 
 ## Key points to land

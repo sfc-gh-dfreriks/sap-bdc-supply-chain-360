@@ -36,8 +36,8 @@ context preserved.
  └──────────────────────────────────────────────────────────────────────────┘
               │                                        │
               ▼                                        ▼
-   SAP_SC360_ANALYST_AGENT                  Native App "Ask the Agent"
-   (Snowflake Intelligence)                 (Cortex Analyst in-app)
+   SAP_SC360_ANALYST_AGENT                  Native App "Ask Cortex"  
+   (Snowflake Intelligence)                 (Cortex in-app)         
                                                         │
                                             React + Express on SPCS
                                             (self-contained Native App)
@@ -90,6 +90,7 @@ DDL: [`sql/02_appref_serving_views.sql`](../sql/02_appref_serving_views.sql).
 For distribution, the app is packaged as a **self-contained Snowflake Native
 App**: the 11 tables the UI needs are **bundled** into the application package's
 `SHARED_DATA` schema (no consumer references), and an in-app copy of the
-`SAP_SUPPLY_CHAIN_360` semantic view powers the Cortex Analyst page. The React
+`SAP_SUPPLY_CHAIN_360` semantic view ships with it (the agent page was removed; the
+agent is used from Snowflake Intelligence). The React
 client + Express server run on **Snowpark Container Services**. See
 [`app/`](../app) and [`INSTALL.md`](INSTALL.md).

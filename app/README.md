@@ -1,11 +1,11 @@
 # SAP Supply Chain 360 (Native App)
 
 An interactive Supply Chain 360 dashboard — a React (Vite) + Express application
-hosted in **Snowpark Container Services** — with an **Ask the Agent** page backed
-by Cortex Analyst. Covers production, inventory, logistics, work centers, projects,
+hosted in **Snowpark Container Services** — with an **Ask Cortex** page (first
+in the sidebar) and an **Executive Dashboard** it opens on. Covers production, inventory, logistics, work centers, projects,
 supplier quality, a supply-chain map, and BDC data products.
 
-**Self-contained:** the Supply Chain dataset and the Cortex Analyst semantic view
+**Self-contained:** the Supply Chain dataset and the `SAP_SUPPLY_CHAIN_360` semantic view
 are **bundled inside the app** — no data setup or reference binding is required.
 
 ## Getting started (consumer)
@@ -22,9 +22,9 @@ are **bundled inside the app** — no data setup or reference binding is require
    CALL core.app_url();
    ```
 
-## Enabling "Ask the Agent" (Cortex Analyst)
+## Enabling Ask Cortex
 
-The semantic view ships with the app; you only need to grant it Cortex access
+The data ships with the app; you only need to grant it Cortex access
 (run as ACCOUNTADMIN):
 
 ```sql

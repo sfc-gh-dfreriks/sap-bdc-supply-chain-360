@@ -47,17 +47,17 @@ FRAMES = {                       # name -> (segment id, fraction into the segmen
     "ontology": ("09_sc_ontology", 0.6),
     "objects": ("06_lineage", 0.6),
 }
-# The video asks its Cortex Analyst question straight away, so the suggestion
+# The video asks its Ask Cortex question straight away, so the suggestion
 # chip grid is never on screen for long. It is shot from the running app instead.
 CHIPS_APP = "http://localhost:5174/"
 CHIPS_BOX = (280, 120, 1576, 420)    # chip grid, in 1600x1000 viewport pixels
 
 APP_PAGES = [
-    "Executive Overview", "Production Planning", "Bill of Materials",
+    "Ask Cortex", "Executive Dashboard", "Production Planning", "Bill of Materials",
     "Inventory & Warehouse", "Logistics & Delivery", "Fulfillment & Constraints",
     "Equipment Health", "Components & Digital Thread", "Work Center & Capacity",
     "Project Management", "Supply Chain Map", "Supply Chain Ontology",
-    "SC Optimization", "SC Forecasting", "BDC Sources & Lineage", "Cortex Analyst",
+    "SC Optimization", "SC Forecasting", "BDC Sources & Lineage",
 ]
 
 REGIONS = [
@@ -78,8 +78,8 @@ def shoot_chips(path):
         b = p.chromium.launch()
         pg = b.new_page(viewport={"width": 1600, "height": APP_H})
         pg.goto(CHIPS_APP, wait_until="domcontentloaded")
-        pg.get_by_role("button", name="Cortex Analyst", exact=True).click()
-        pg.get_by_text("What is the monthly OEE trend by plant?").first.wait_for(timeout=30000)
+        pg.get_by_role("button", name="Ask Cortex", exact=True).click()
+        pg.get_by_text("Which plant needs attention first and why?").first.wait_for(timeout=30000)
         pg.mouse.move(5, APP_H - 5)    # keep the pointer out of the shot
         pg.wait_for_timeout(800)
         pg.screenshot(path=str(path), clip=dict(x=CHIPS_BOX[0], y=CHIPS_BOX[1],
@@ -245,7 +245,7 @@ def s03_architecture(prs):
         ("SEM", "Semantic — SAP_SUPPLY_CHAIN_360",
          "55 facts · 107 dimensions · 12 verified queries · 3 relationships"),
         ("AI", "Agent — SAP_SC360_ANALYST_AGENT",
-         "Cortex Agent in Snowflake Intelligence, and Cortex Analyst inside the app"),
+         "Cortex Agent in Snowflake Intelligence, and Ask Cortex inside the app"),
         ("APP", "Native App — 16 pages on SPCS",
          "React + Express, 18 tables bundled into SHARED_DATA, nothing to configure"),
     ]
@@ -298,16 +298,16 @@ def s06_agent(prs, shots):
     s = blank(prs)
     header(s, "The AI", "Plain-English questions, governed SQL underneath")
     text(s, Inches(0.6), Inches(1.8), Inches(12.13), Inches(0.5), [
-        ("The eight questions the Cortex Analyst page ships with — each one backed by a "
-         "verified query on the semantic view:", 13, False, NAVY, 0)])
+        ("The six questions the Ask Cortex page ships with — answered from the app's "
+         "live numbers across the whole supply chain:", 13, False, NAVY, 0)])
 
     picture_fit(s, shots["chips"], Inches(0.9), Inches(2.45), Inches(11.5), Inches(2.5))
 
     rect(s, Inches(0.6), Inches(5.3), Inches(5.96), Inches(1.5), LIGHT)
     text(s, Inches(0.9), Inches(5.55), Inches(5.4), Inches(1.1), [
         ("WHY IT IS DEFENSIBLE", 9, True, BLUE, 8),
-        ("The generated SQL expands on screen, and the agent is constrained to the "
-         "semantic model — which is the entire reason for having one.",
+        ("Answers come from the app's own numbers; in Snowflake Intelligence the agent "
+         "shows its generated SQL and is constrained to the semantic model.",
          11.5, False, NAVY, 0)], spacing=1.12)
 
     rect(s, Inches(6.77), Inches(5.3), Inches(5.96), Inches(1.5), LIGHT)
@@ -333,7 +333,7 @@ def s07_routes(prs):
         ("Native App", "The default",
          ["Install the listing, open it, present",
           "Data bundled in — no grants, no warehouse sizing",
-          "16 pages plus Cortex Analyst and Ask Cortex",
+          "16 pages, starting with Ask Cortex",
           "Best for business, ops and exec audiences"],
          BLUE),
         ("Data share + Snowflake Intelligence", "For architects",

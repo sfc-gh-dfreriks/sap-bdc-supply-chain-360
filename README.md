@@ -32,7 +32,7 @@ sap-bdc-supply-chain-360/
 
 `SAP BDC Standard Data Products (L0)` → `ANALYTICS dynamic tables (L2)` →
 `APP_REF serving views` → `SAP_SUPPLY_CHAIN_360 semantic view` →
-`SAP_SC360_ANALYST_AGENT` + Native App "Ask the Agent".
+`SAP_SC360_ANALYST_AGENT` (Snowflake Intelligence) + Native App (Ask Cortex).
 
 Full detail (diagram + per-table content): [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -50,9 +50,10 @@ Step-by-step runbook: [`docs/INSTALL.md`](docs/INSTALL.md).
 ## The app
 
 A React dashboard covering **production, inventory, logistics, work centers,
-projects, supplier quality and a live supply-chain map**, plus an **Ask the
-Agent** page (Cortex Analyst over the bundled `SAP_SUPPLY_CHAIN_360` semantic
-view).
+projects, supplier quality and a live supply-chain map**. The sidebar starts with
+**Ask Cortex** (questions across the whole supply chain), then **Executive Dashboard**,
+the page the app opens on. The bundled `SAP_SUPPLY_CHAIN_360` semantic view also backs
+the `SAP_SC360_ANALYST_AGENT` Cortex Agent in Snowflake Intelligence.
 
 Three pages run on the **OPS_EXT** demo enrichment — synthetic but keyed to the
 SAP plants, work centers, BOM and suppliers, so they join cleanly to the BDC data:
