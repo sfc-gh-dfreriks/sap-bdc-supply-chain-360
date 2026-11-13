@@ -90,6 +90,10 @@ export function fetchOntology(): Promise<any> {
   return getSingle<any>('/ontology', 'ontology');
 }
 
+export function fetchBusinessOntology(): Promise<any> {
+  return getSingle<any>('/business-ontology', 'business-ontology');
+}
+
 export function fetchOptimization(plants: string[]): Promise<any> {
   return getKeyed<any>('/optimization', 'optimization', plants);
 }

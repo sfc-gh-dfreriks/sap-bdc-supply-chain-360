@@ -7,15 +7,17 @@ import MetricCard, { Factory, CheckCircle2, Timer, TrendingUp } from '@/componen
 import ChartCard from '@/components/ChartCard';
 import DataTable from '@/components/DataTable';
 import { ExternalLink, Network } from 'lucide-react';
+import BusinessOntologyPanel from '@/components/BusinessOntologyPanel';
 
 const PALETTE = ['#06b6d4', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444', '#3b82f6', '#ec4899'];
 
 // ---------------------------------------------------------------------------
 // Link out to the companion Supply Chain Ontology app
 //
-// That app is a separate React app over the same network, and goes deeper than
-// this page does: BDC ontology coverage, graph traversal, and the disruption
-// scenario modelling (ripple propagation and AI mitigation planning).
+// That app is a separate React app over the same network, built on Snowflake
+// Business Ontology (domain "Supply Chain"): the governed concept model plus
+// disruption scenario modelling (ripple propagation, mitigation and recovery)
+// and the digital thread.
 //
 // It keeps its current page in the URL hash, so these links land directly on the
 // page named rather than dropping you on its Overview.
@@ -31,8 +33,12 @@ const DEEP_LINKS = [
     blurb: 'Pick a disruption — hurricane, supplier failure, lane closure' },
   { hash: 'ripple',     label: 'Ripple Map',
     blurb: 'Watch the impact propagate hop by hop across the network' },
-  { hash: 'mitigation', label: 'Mitigation Plan',
+  { hash: 'mitigation', label: 'Mitigation & Recovery',
     blurb: 'Reroutes, spare capacity, and what cannot be saved' },
+  { hash: 'thread',     label: 'Digital Thread',
+    blurb: 'Follow one order end to end across the governed concepts' },
+  { hash: 'model',      label: 'Ontology',
+    blurb: 'The governed domain — concepts, relationships, representations' },
   { hash: 'demo',       label: 'Guided Demo',
     blurb: 'Seven annotated steps showing which control to click' },
 ];
@@ -52,10 +58,10 @@ function OntologyAppLink() {
             </span>
           </div>
           <p className="mt-1.5 text-sm leading-relaxed text-sf-dark/70">
-            This page shows the entity graph and BOM structure. The companion app goes
-            further on the same network — SAP BDC ontology coverage, graph traversal,
-            and disruption scenario modelling that propagates a shock through the
-            network and plans the reroutes around it.
+            The companion app is built on Snowflake Business Ontology. It runs on the
+            same governed “Supply Chain” domain shown below, and adds disruption scenario
+            modelling: a shock propagates through the network, and the app plans the
+            mitigation and recovery around it.
           </p>
         </div>
         <div className="flex shrink-0 flex-col gap-2">
@@ -82,7 +88,7 @@ function OntologyAppLink() {
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-2 border-t border-sf-primary/15 pt-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-4 grid grid-cols-1 gap-2 border-t border-sf-primary/15 pt-4 sm:grid-cols-2 lg:grid-cols-3">
         {DEEP_LINKS.map((d) => (
           <a
             key={d.hash}
@@ -99,6 +105,17 @@ function OntologyAppLink() {
           </a>
         ))}
       </div>
+    </div>
+  );
+}
+
+function SC360DataHeading() {
+  return (
+    <div className="flex items-center gap-2 border-t border-gray-200 pt-4">
+      <h2 className="text-lg font-bold text-sf-dark">SC360 data</h2>
+      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-sf-dark/60">
+        network, BOM and suppliers from this app's APP_DATA
+      </span>
     </div>
   );
 }
@@ -334,6 +351,8 @@ export default function Ontology() {
     return (
       <div className="space-y-6">
         <OntologyAppLink />
+        <BusinessOntologyPanel />
+        <SC360DataHeading />
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="h-32 animate-pulse rounded-xl bg-sky-100/60" />
         ))}
@@ -345,6 +364,8 @@ export default function Ontology() {
     return (
       <div className="space-y-6">
         <OntologyAppLink />
+        <BusinessOntologyPanel />
+        <SC360DataHeading />
         <div className="rounded-xl bg-red-50 p-4 text-red-700">Error: {error}</div>
       </div>
     );
@@ -354,6 +375,8 @@ export default function Ontology() {
     return (
       <div className="space-y-6">
         <OntologyAppLink />
+        <BusinessOntologyPanel />
+        <SC360DataHeading />
         <p className="py-4 text-center text-sm text-gray-400">No data available</p>
       </div>
     );
@@ -362,6 +385,8 @@ export default function Ontology() {
   return (
     <div className="space-y-6">
       <OntologyAppLink />
+      <BusinessOntologyPanel />
+      <SC360DataHeading />
       <Tabs.Root defaultValue="graph">
       <Tabs.List className="mb-6 flex gap-1 border-b border-gray-200">
         <Tabs.Trigger value="graph" className={tabClass}>Entity Graph</Tabs.Trigger>

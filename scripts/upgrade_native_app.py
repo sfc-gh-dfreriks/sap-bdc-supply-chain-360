@@ -73,7 +73,15 @@ def upgrade(target, wh, label):
         # is rejected for it, so a plain UPGRADE is the right call.
         cur.execute(f"DESCRIBE APPLICATION {APP}")
         if dict((r[0], r[1]) for r in cur.fetchall()).get("release_channel_name"):
-            cur.execute(f"ALTER APPLICATION {APP} UPGRADE")
+            try:
+                cur.execute(f"ALTER APPLICATION {APP} UPGRADE")
+            except Exception as e:
+                # An install created from an explicit version reports a release
+                # channel too, but rejects a plain UPGRADE (093055); it must name
+                # the version and patch.
+                if "093055" not in str(e):
+                    raise
+                cur.execute(f"ALTER APPLICATION {APP} UPGRADE USING VERSION {VERSION} PATCH {patch}")
         else:
             cur.execute(f"ALTER APPLICATION {APP} UPGRADE USING VERSION {VERSION} PATCH {patch}")
     cur.execute(f"CALL {APP}.CORE.VERSION_INIT()")

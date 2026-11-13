@@ -289,6 +289,29 @@ router.get("/api/lineage", async (_req: Request, res: Response) => {
 });
 
 // ---------------------------------------------------------------------------
+// GET /api/business-ontology
+// Bundled snapshot of the Snowflake Business Ontology domain "Supply Chain"
+// (US account MSB89522). Served from a file, not Snowflake: Business Ontology
+// is not enabled in EMEA/APAC, so every region ships the same snapshot.
+// ---------------------------------------------------------------------------
+const BUSINESS_ONTOLOGY_FILE =
+  process.env.BUSINESS_ONTOLOGY_FILE ??
+  path.resolve(import.meta.dirname, "../../data/business_ontology.json");
+let businessOntologyCache: unknown = null;
+
+router.get("/api/business-ontology", (_req: Request, res: Response) => {
+  try {
+    if (!businessOntologyCache) {
+      businessOntologyCache = JSON.parse(fs.readFileSync(BUSINESS_ONTOLOGY_FILE, "utf8"));
+    }
+    res.json(businessOntologyCache);
+  } catch (err) {
+    console.error("GET /api/business-ontology error:", err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// ---------------------------------------------------------------------------
 // GET /api/ontology
 // ---------------------------------------------------------------------------
 router.get("/api/ontology", async (_req: Request, res: Response) => {

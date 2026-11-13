@@ -22,6 +22,8 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/server/package.json ./server/package.json
 COPY --from=build /app/server/dist ./server/dist
+# Bundled Business Ontology snapshot served by GET /api/business-ontology
+COPY --from=build /app/server/data ./server/data
 COPY --from=build /app/client/dist ./client/dist
 
 # SPCS listens on this port; align with service_spec.yml + readinessProbe
